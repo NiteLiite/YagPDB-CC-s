@@ -11,10 +11,13 @@
 
 */}}
 
+{{/* Configurable Values */}}
+
 {{$days := 7}} {{/* This will change how many days of account age are required for 3 total points out of 6. (i.e. 7, 7 x 5, and 7 x 17) */}}
-{{$mod_joinlog := 905165876767117312}} {{/* Where regular join messages will go (channel ID) */}}
-{{$alerts := 952453676218335282}} {{/* Where suspicious account alerts will go (channel ID) */}}
-{{$memberrole := 946624674345943120}} {{/* Put the ID of your member role here */}}
+{{$mod_joinlog := channelID}} {{/* Where regular join messages will go (channel ID) */}}
+{{$alerts := channelID}} {{/* Where suspicious account alerts will go (channel ID) */}}
+{{$memberrole := roleID}} {{/* Put the ID of your member role here */}}
+{{$susaction := (execAdmin "kick" .User.ID)}} {{/* Replace this whole line with the action you want to take upon members that do not pass verification. (example given) */}}
 
 {{/* DO NOT edit any of the code below unless you know what you are doing. */}}
 
@@ -77,16 +80,17 @@
     "footer" (sdict "text" (print "User Trust: " (print $trust) "/6  |  " (print $trustiness)))
 ))}}
 
-{{if dbGet 0 "BACKUPALTCHECK"}}
+{{if dbGet 0 "backupverification"}}
   {{if ge $trust 4}}
 {{addRoleID $memberrole}}
   {{else}}
-    {{sendDM (print "**Hello, " .User.Username "!**\n\nUnfortunately, your account was flagged as untrustworthy by our backup verification bot. To verify, **come back later** when <@372022813839851520> is online (and working properly) and use `!verify` in <#919357367794155530> to verify yourself!\n\nWe apologize for the inconvenience!\n*- The " .Guild.Name " Discord Staff Team*")}}
+  {{$susaction}}
     {{sendMessage $alerts (complexMessage "content" (print .User.ID) "embed" (cembed
 "title"       (print .User.String " is suspicious!")
-"description" (print "```" $desc "```\nOther info:\n> **Custom status:** " $status "\n> Account age: " (humanizeDurationMinutes $age))
+"description" (print "```" $desc "```\n**Other info:**\n> **Custom status:** " $status "\n> Account age: " (humanizeDurationMinutes $age))
 "thumbnail"   (sdict "url" (.User.AvatarURL "256"))
       "footer"      (sdict "text" (print "User Trust: " $thing " " $trust "/6 | " $trustiness))
     ))}}
   {{end}}
 {{end}}
+
