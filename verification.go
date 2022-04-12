@@ -84,7 +84,7 @@
     {{sendDM (print "**Hello, " .User.Username "!**\n\nUnfortunately, your account was flagged as untrustworthy by our backup verification bot. To verify, **come back later** when <@372022813839851520> is online (and working properly) and use `!verify` in <#919357367794155530> to verify yourself!\n\nWe apologize for the inconvenience!\n*- The " .Guild.Name " Discord Staff Team*")}}
     {{sendMessage $alerts (complexMessage "content" (print .User.ID) "embed" (cembed
 "title"       (print .User.String " is suspicious!")
-"description" (print "```" $desc "``````\nOther info:\n> Custom status: " $status "\n> Account age: " (humanizeDurationMinutes $age) "```")
+"description" (print "```" $desc "```\nOther info:\n> **Custom status:** " $status "\n> Account age: " (humanizeDurationMinutes $age))
 "thumbnail"   (sdict "url" (.User.AvatarURL "256"))
       "footer"      (sdict "text" (print "User Trust: " $thing " " $trust "/6 | " $trustiness))
     ))}}
