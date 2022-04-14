@@ -17,7 +17,11 @@
 {{$mod_joinlog := channelID}} {{/* Where regular join messages will go (channel ID) */}}
 {{$alerts := channelID}} {{/* Where suspicious account alerts will go (channel ID) */}}
 {{$memberrole := roleID}} {{/* Put the ID of your member role here */}}
-{{$susaction := (execAdmin "kick" .User.ID)}} {{/* Replace this whole line with the action you want to take upon members that do not pass verification. (example given) */}}
+
+{{define "sus-action"}} {{/* <-- Don't edit this one */}}
+{{$susaction := (execAdmin "kick" .User.ID "Account did not pass trust requirements." )}} {{/* Replace this whole line with the action you want to take upon members that do not pass verification. (example given) */}}
+{{end}}
+
 
 {{/* DO NOT edit any of the code below unless you know what you are doing. */}}
 
@@ -80,7 +84,7 @@
 {{if ge $trust 4}}
   {{addRoleID $memberrole}}
     {{else}}
-  {{$susaction}}
+  {{$hush := sendTemplate nil "sus-action"}}
     {{sendMessage $alerts (complexMessage "content" (print .User.ID) "embed" (cembed
 "title"       (print .User.String " is suspicious!")
 "description" (print "```" $desc "```\n**Other info:**\n> **Custom status:** " $status "\n> Account age: " (humanizeDurationMinutes $age))
