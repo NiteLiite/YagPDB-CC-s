@@ -61,7 +61,7 @@
 
 {{$color := 4325195 }}
 {{$thing := "✅"}}
-   {{if or (eq $trust 4) (eq $trust 3)  }}
+   {{if (eq $trust 3) }}
          {{$color = 16765184}}
         {{$thing = "⚠️"}}
        {{end}}
