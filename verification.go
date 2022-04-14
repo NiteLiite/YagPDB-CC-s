@@ -61,14 +61,11 @@
 
 {{$color := 4325195 }}
 {{$thing := "✅"}}
-   {{if and ( lt $trust 4) (not (lt $trust 3)) }}
+   {{if or (eq $trust 4) (eq $trust 3)  }}
          {{$color = 16765184}}
         {{$thing = "⚠️"}}
        {{end}}
-   {{if eq $trust 2}}
-         {{$color = 16763539}}
-       {{end}}
-   {{if or (eq $trust 0) (eq $trust 1) }}
+   {{if or (eq $trust 0) (eq $trust 1) (eq $trust 2) }}
     {{$thing = "⛔"}}
          {{$color = 16715776}}
        {{end}}
@@ -80,10 +77,9 @@
     "footer" (sdict "text" (print "User Trust: " (print $trust) "/6  |  " (print $trustiness)))
 ))}}
 
-{{if dbGet 0 "backupverification"}}
-  {{if ge $trust 4}}
-{{addRoleID $memberrole}}
-  {{else}}
+{{if ge $trust 4}}
+  {{addRoleID $memberrole}}
+    {{else}}
   {{$susaction}}
     {{sendMessage $alerts (complexMessage "content" (print .User.ID) "embed" (cembed
 "title"       (print .User.String " is suspicious!")
@@ -91,6 +87,5 @@
 "thumbnail"   (sdict "url" (.User.AvatarURL "256"))
       "footer"      (sdict "text" (print "User Trust: " $thing " " $trust "/6 | " $trustiness))
     ))}}
-  {{end}}
 {{end}}
 
