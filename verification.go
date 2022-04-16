@@ -96,7 +96,7 @@
   {{$hush := sendTemplate nil "sus-action"}}
     {{sendMessage $alerts (complexMessage "content" (print .User.ID) "embed" (cembed
 "title"       (print .User.String " is suspicious!")
-"description" (print "```" $desc "```\n**Other info:**\n> **Custom status:** " $status "\n> Account age: " (humanizeDurationMinutes $age))
+"description" (print "```" $desc "```\n**Other info:**\n> Custom status: " $status "\n> Account age: " (humanizeDurationMinutes $age))
 "thumbnail"   (sdict "url" (.User.AvatarURL "256"))
       "footer"      (sdict "text" (print "User Trust: " $thing " " $trust "/6 | " $trustiness))
     ))}}
