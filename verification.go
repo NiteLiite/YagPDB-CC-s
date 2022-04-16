@@ -21,6 +21,16 @@
 {{$susaction := "" )}} {{/* Replace the "" with the action you want to take upon members that do not pass verification. */}}
 {{end}} {{/* <-- Don't edit this one either */}}
 
+{{$level := 0}} {{/* For this one, there are specific numbers that can (and should) be entered.
+			0 = No action on distrusted users.
+			1 = Action on extremely distrusted users.
+			2 = Action on mostly distrusted users.
+			3 = Action on somewhat distrusted users.
+			4 = Action on neutral users. (Recommended)
+			5 = Action on trusted users. (Anything from this point and beyond is NOT recommended.)
+			6 = Action on all users.
+		*/}}
+
 
 {{/* DO NOT edit any of the code below unless you know what you are doing. */}}
 
@@ -80,7 +90,7 @@
     "footer" (sdict "text" (print "User Trust: " (print $trust) "/6  |  " (print $trustiness)))
 ))}}
 
-{{if ge $trust 4}}
+{{if ge $trust $level}}
   {{addRoleID $memberrole}}
     {{else}}
   {{$hush := sendTemplate nil "sus-action"}}
