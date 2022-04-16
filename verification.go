@@ -4,7 +4,7 @@
  
 	Description: YAGPDB will detect suspicious accounts based on 4 key algorithms.
  
-	Note: Please configure the variables after pasting the code into your control panel Custom Commands. Then, paste {{execCC CCIDHERE anychannelID 0 .ExecData}} into your join feed message.
+	Note: Please configure the variables after pasting the code into your control panel Custom Commands. Then, paste {{execCC CCIDHERE anychannelID 0 .ExecData}} into your join feed message (or just paste the full code into your join message).
  
 	Copyright (c): NiteLiite, 2022
 	Repository: https://github.com/NiteLiite/YagPDB-CC-s
