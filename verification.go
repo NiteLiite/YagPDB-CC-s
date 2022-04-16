@@ -13,14 +13,14 @@
 
 {{/* Configurable Values */}}
 
-{{$days := 7}} {{/* This will change how many days of account age are required for 3 total points out of 6. (i.e. 7, 7 x 5, and 7 x 17) */}}
+{{$days := 7}} {{/* This will change how many days of account age are required for 3 total points out of 6. (i.e. 1 point per 7, 7 x 5, and 7 x 17 days) */}}
 {{$mod_joinlog := channelID}} {{/* Where regular join messages will go (channel ID) */}}
 {{$alerts := channelID}} {{/* Where suspicious account alerts will go (channel ID) */}}
 {{$memberrole := roleID}} {{/* Put the ID of your member role here */}}
 
 {{define "sus-action"}} {{/* <-- Don't edit this one */}}
-{{$susaction := (execAdmin "kick" .User.ID "Account did not pass trust requirements." )}} {{/* Replace this whole line with the action you want to take upon members that do not pass verification. (example given) */}}
-{{end}}
+{{$susaction := "" )}} {{/* Replace the "" with the action you want to take upon members that do not pass verification. */}}
+{{end}} {{/* <-- Don't edit this one either */}}
 
 
 {{/* DO NOT edit any of the code below unless you know what you are doing. */}}
