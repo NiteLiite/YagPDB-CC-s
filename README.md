@@ -12,3 +12,5 @@ Step 4: Paste the contents of verification.go into the body section (the only ot
 Step 5: Locate the CCID, which will be displayed as #(number) at the top of the page. Keep this number saved.
 Step 6: On the sidebar, click Notifications & Feeds, then select General.
 Step 7: Enable "Join message in server channel," select any channel (it will not send messages there) and type the following in the body: {{execCC TheCCIDfromStep5 nil 0 .ExecData}}
+
+Extra credits to Galen for helping me with the $desc part!
