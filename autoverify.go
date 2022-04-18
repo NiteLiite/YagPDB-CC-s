@@ -18,7 +18,7 @@
 {{$memberrole := roleID}} {{/* Put the ID of your member role here */}}
 
 {{define "sus-action"}} {{/* <-- Don't edit this one */}}
-{{$susaction := "" )}} {{/* Replace the "" with the action you want to take upon members that do not pass verification. */}}
+{{$susaction := "" }} {{/* Replace the "" with the code you want to execute upon members that do not pass verification (e.g: {{execAdmin "kick" .User "Failed verification requirements, rejoin when <issue(s)> have been resolved"}} ) */}}
 {{end}} {{/* <-- Don't edit this one either */}}
 
 {{$level := 0}} {{/* For this one, there are specific numbers that can (and should) be entered.
