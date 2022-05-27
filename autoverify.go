@@ -35,7 +35,14 @@
 {{/* DO NOT edit any of the code below unless you know what you are doing. */}}
 
 {{$age := currentTime.Sub currentUserCreated}}
-{{$status := (index (exec "whois" .User.ID).Fields 6).Value}}
+
+{{$status := ""}}
+{{try}}
+{{$status = (index (exec "whois" .User.ID).Fields 6).Value}}
+{{catch}}
+{{$status = "Could not retrieve user's custom status."
+{{end}}
+
 {{$createdAt := div .User.ID 4194304 | add 1420070400000 | mult 1000000 | toDuration | (newDate 1970 1 1 0 0 0).Add }}
 {{$when := $createdAt.Format "Monday, January 2, 2006 at 3:04 AM"}}
 
