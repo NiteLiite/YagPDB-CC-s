@@ -1,5 +1,11 @@
-{{$staff := 507368219632205828}}
-{{$tossed := 954490752417796136}}
+{{/*
+	NOTE: THIS COMMAND ASSUMES YOU HAVE - AS YOUR PREFIX.
+	If not, simply swap the - in the trigger with your prefix!
+*/}}
+
+{{$staff := 507368219632205828}} {{/* ID OF STAFF ROLE (NOTE: You still have to lock this command to a staff role) */}}
+{{$tossed := 954490752417796136}} {{/* ID OF ROLE THAT LOCKS THE USER OUT OF ALL CHANNELS */}}
+
 
 {{if (ge (len .CmdArgs) 1)}}
 	{{if (getMember (index .CmdArgs 0))}}
@@ -7,7 +13,7 @@
 		{{if (not (targetHasRoleID $member.User.ID $staff))}}
  
 {{/* TOSS */}}
-{{if reFind `\A-(?i)(((add)?)(rb|toss|roleban))` .Cmd}}
+{{if reFind `(?i)(((add)?)(rb|toss|roleban))` .Cmd}}
 	{{if not (targetHasRoleID $member.User.ID $tossed)}}
 		{{dbSet $member.User.ID "autoban" (str $member.User.ID)}}
 		{{giveRoleID ($member.User) $tossed}}
@@ -23,7 +29,7 @@
 			{{deleteTrigger 0}}
 		{{end}}
 
-		{{if not (reFind `\A-(?i)(add)` .Cmd)}}
+		{{if not (reFind `(?i)(add)` .Cmd)}}
 			{{try}}
 				{{$shh := createTicket $member.User.ID (print "🔕┃" $member.User.ID "┃") }}
 			{{catch}}
@@ -41,7 +47,7 @@
 {{/* END OF TOSS */}}
  
 {{/* UNTOSS */}}
-{{if reFind `\A-(?i)(ub|untoss|unroleban)` .Cmd}}
+{{if reFind `(?i)(ub|untoss|unroleban)` .Cmd}}
 	{{if (targetHasRoleID $member.User.ID $tossed)}}
 		{{dbDel $member.User.ID "autoban"}}
 		{{$Uembed := sdict
