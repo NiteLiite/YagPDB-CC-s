@@ -1,0 +1,7 @@
+Toss and Untoss, also known as Rolebanning, is the process of locking a user to a temporary, private channel to discuss behavior, issues, and other things of that sort.
+
+To set this up, you need to make sure that ticket commands are DISABLED.
+
+Step 1: Set a category for Rolebans to be created in (I.e. a STAFF ONLY "Rolebans" category)
+Step 2: Set transcripts and status updates to go to a "roleban-logging" channel within the category and enable "Create .txt transcripts when tickets close" and "Download and archive attachments when closing the ticket"
+Step 3: Paste the Complex_Toss_Untoss code into a CC and have fun!
