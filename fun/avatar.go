@@ -1,3 +1,16 @@
+{{/* 
+
+    Trigger Type: Regex
+    Trigger: \A(-|<@!?204255221017214977>\s*)(server|s|g|guild)?(avatar|av|pfp)(\s+|\z)
+    
+    Usage: Type "(prefix)pfp help" to see how to use it!
+    Note: Replace the first - in the trigger with whatever your prefix is.
+    
+    Copyright: MIT
+    Source: https://github.com/NiteLiite/YagPDB-CC-s/
+    
+*/}}
+
 {{$server := reFind `(?i)(server|s|g|guild)` .Cmd}}
 {{$help := false}}
 {{$break := false}}
