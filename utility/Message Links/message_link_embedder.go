@@ -1,7 +1,7 @@
 {{/*
 
     Made by NiteLiite#0001
-    Based on BlackWolf's original message link CC and uses similar techniques --> https://github.com/BlackWolfWoof/yagpdb-cc/blob/master/Misc/message_link.yag
+    Based on BlackWolf's original message link CC and uses similar techniques and has some copied chunks of code (i.e. the $index setup) --> https://github.com/BlackWolfWoof/yagpdb-cc/blob/master/Misc/message_link.yag
     
     Copyright @ MIT 2022
     
