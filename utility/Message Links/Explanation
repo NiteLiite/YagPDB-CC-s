@@ -1,0 +1,5 @@
+The two CC's below are essentially the same thing. 
+However one (message_link_embedder_with_pin) contains a "pin message" feature which acts as a customized starboard of sorts. 
+This customized starboard is fairly self-explanatory, but it allows users with the proper roles to embed messages directly to it.
+
+The other CC (message_link_embedder) has no such features and only embeds message links
