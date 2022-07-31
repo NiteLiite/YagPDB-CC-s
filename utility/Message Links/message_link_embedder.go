@@ -109,7 +109,7 @@
               {{if eq $add 1}}
                 {{$e.Set "image" (sdict "url" .URL)}}
                 {{if ne $add $total}}
-                  {{$e.Set "footer" (sdict "text" (print $add "/" $total " - " .Type))}}
+                  {{$e.Set "footer" (sdict "text" (print $add "/" $total " - " .Type))}}{{else}}{{$e.Set "footer" (sdict "text" (print $add "/" $total " - " .Type "\n" $footer))}}
                 {{end}}
                 {{sendMessage nil (cembed $e)}}
               {{else}}
@@ -141,7 +141,7 @@
               {{end}}{{sendMessage nil (cembed $e)}}
             {{else}}
               {{if eq $add $total}}
-                {{$e2.Set "footer" (sdict "text" (print $add "/" $total " - " .Filename "\n" $footer))}}
+                {{$e2.Set "footer" (sdict "text" (print $add "/" $total " - " .Filename "\n" $footer))}}{{else}}{{$e.Set "footer" (sdict "text" (print $add "/" $total " - " .Filename "\n" $footer))}}
               {{end}}{{sendMessage nil (cembed $e2)}}
             {{end}}
           {{else if reFind `(?i)\.(mov|mp4|webm)\z` .URL}}
