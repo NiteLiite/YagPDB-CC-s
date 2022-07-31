@@ -130,7 +130,7 @@
               {{if eq $add 1}}
                 {{$e.Set "image" (sdict "url" .URL)}}
                 {{if ne $add $total}}
-                  {{$e.Set "footer" (sdict "text" (print $add "/" $total " - " .Type))}}
+                  {{$e.Set "footer" (sdict "text" (print $add "/" $total " - " .Type))}}{{else}}{{$e.Set "footer" (sdict "text" (print $add "/" $total " - " .Type "\n" $footer))}}
                 {{end}}
                 {{sendMessage $where (cembed $e)}}
               {{else}}
@@ -158,7 +158,7 @@
             {{if eq $add 1}}
               {{$e.Set "image" (sdict "url" .URL)}}
               {{if ne $add $total}}
-                {{$e.Set "footer" (sdict "text" (print $add "/" $total " - " .Filename))}}
+                {{$e.Set "footer" (sdict "text" (print $add "/" $total " - " .Filename))}}{{else}}{{$e.Set "footer" (sdict "text" (print $add "/" $total " - " .Type "\n" $footer))}}
               {{end}}{{sendMessage $where (cembed $e)}}
             {{else}}
               {{if eq $add $total}}
