@@ -1,4 +1,7 @@
 {{/*
+	Trigger: \A-(((add)?(rb|toss|roleban))|(urb|untoss|unroleban))
+	Trigger Type: Regex
+	
 	NOTE: THIS COMMAND ASSUMES YOU HAVE - AS YOUR PREFIX.
 	If not, simply swap the - in the trigger with your prefix!
 */}}
