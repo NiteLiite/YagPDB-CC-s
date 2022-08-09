@@ -78,11 +78,17 @@
           {{$e.Set "description" (joinStr "\n" ($e.Get "description") (print (slice . 0 1993) "`[...]`"))}}
         {{end}}
       {{end}}
+      {{$avatar := ""}}
       {{with $msg.ReferencedMessage}}
+        {{$avatar = print "https://cdn.discordapp.com/embed/avatars/" (randInt 0 6) ".png?size=256"}}
+        {{if (getMember .Author.ID)}}
+          {{$avatar = (getMember .Author.ID).AvatarURL "256"}}
+        {{end}}
         {{$e.Set "fields" (($e.Get "fields").Append (sdict
           "name" "Replied To"
           "value" (print "**[" .Author.String ":](https://discord.com/channels/" $.Guild.ID "/" $channel_id "/" .ID ")** " .Content) "inline" false)
         )}}
+        {{$e.Set "footer" (sdict "text" $footer "icon_url" $avatar)}}
       {{end}}
 
       {{$total := add (len $msg.Embeds) (len $msg.Attachments)}}{{$add := 0}}
@@ -92,7 +98,7 @@
         {{if or (or .Title .Description .Author .Footer .Fields) (eq .Type "rich")}}
           {{$total = sub $total 1}}
           {{if eq .Type "rich"}}
-            {{sendMessage nil (cembed (. | structToSdict))}}
+            {{sendMessage nil (cembed (. | structToSdict))}} 
           {{else}}
             {{sendMessage nil .URL}}
           {{end}}
@@ -109,12 +115,12 @@
               {{if eq $add 1}}
                 {{$e.Set "image" (sdict "url" .URL)}}
                 {{if ne $add $total}}
-                  {{$e.Set "footer" (sdict "text" (print $add "/" $total " - " .Type))}}{{else}}{{$e.Set "footer" (sdict "text" (print $add "/" $total " - " .Type "\n" $footer))}}
+                  {{$e.Set "footer" (sdict "text" (print $add "/" $total " - " .Type))}}{{else}}{{$e.Set "footer" (sdict "text" (print $add "/" $total " - " .Type "\n" $footer) "icon_url" $avatar)}}
                 {{end}}
                 {{sendMessage nil (cembed $e)}}
               {{else}}
                 {{if eq $add $total}}
-                  {{$e2.Set "footer" (sdict "text" (print $add "/" $total " - " .Type "\n" $footer))}}
+                  {{$e2.Set "footer" (sdict "text" (print $add "/" $total " - " .Type "\n" $footer) "icon_url" $avatar)}}
                 {{end}}
                 {{sendMessage nil (cembed $e2)}}
               {{end}}
@@ -125,7 +131,7 @@
               {{end}}
                 {{sendMessage nil .URL}}
               {{if eq $add $total}}
-                {{sendMessage nil (cembed "footer" (sdict "text" (print $add "/" $total " - " .Type "\n" $footer)) "color" $col)}}
+                {{sendMessage nil (cembed "footer" (sdict "text" (print $add "/" $total " - " .Type "\n" $footer ) "icon_url" $avatar) "color" $col)}}
               {{end}}
             {{end}}
           {{end}}
@@ -137,11 +143,11 @@
             {{if eq $add 1}}
               {{$e.Set "image" (sdict "url" .URL)}}
               {{if ne $add $total}}
-                {{$e.Set "footer" (sdict "text" (print $add "/" $total " - " .Filename))}}{{else}}{{$e.Set "footer" (sdict "text" (print $add "/" $total " - " .Filename "\n" $footer))}}
+                {{$e.Set "footer" (sdict "text" (print $add "/" $total " - " .Filename))}}{{else}}{{$e.Set "footer" (sdict "text" (print $add "/" $total " - " .Filename "\n" $footer) "icon_url" $avatar)}}
               {{end}}{{sendMessage nil (cembed $e)}}
             {{else}}
               {{if eq $add $total}}
-                {{$e2.Set "footer" (sdict "text" (print $add "/" $total " - " .Filename "\n" $footer))}}
+                {{$e2.Set "footer" (sdict "text" (print $add "/" $total " - " .Filename "\n" $footer) "icon_url" $avatar)}}
               {{end}}{{sendMessage nil (cembed $e2)}}
             {{end}}
           {{else if reFind `(?i)\.(mov|mp4|webm)\z` .URL}}
@@ -151,7 +157,7 @@
             {{end}}
               {{sendMessage nil .URL}}
               {{if eq $add $total}}
-                {{sendMessage nil (cembed "footer" (sdict "text" (print $add "/" $total " - " .Filename "\n" $footer)) "color" $col)}}
+                {{sendMessage nil (cembed "footer" (sdict "text" (print $add "/" $total " - " .Filename "\n" $footer) "icon_url" $avatar) "color" $col)}}
               {{end}}
           {{else}}
             {{if eq $add 1}}
@@ -167,7 +173,7 @@
               "footer" (sdict "text" (print $add "/" $total))
             }}
             {{if eq $add $total}}
-              {{$f.Set "footer" (sdict "text" (print $add "/" $total " - " .Filename "\n" $footer))}}
+              {{$f.Set "footer" (sdict "text" (print $add "/" $total " - " .Filename "\n" $footer) "icon_url" $avatar)}}
             {{end}}
             {{sendMessage nil (cembed $f)}}
           {{end}}
