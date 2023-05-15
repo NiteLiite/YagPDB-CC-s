@@ -25,7 +25,6 @@
 {{$message_id := index $index 0 3|toInt}}
 {{$timestamp := ((snowflakeToTime (toInt $message_id)).Format "January 02, 2006")}}
 {{$footer := printf "Invocation by %s. Message from %s." .User $timestamp}}
-
 {{$bypass := false}}{{range .Member.Roles}}{{if in $mod_role_ids .}}{{$bypass = true}}{{end}}{{end}}
 
 {{if not (eq (toInt64 $guild_id) .Guild.ID)}}
